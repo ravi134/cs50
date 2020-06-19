@@ -10,7 +10,7 @@ int count_letters(string text);
 int count_words(string text);
 int count_sentences(string text);
 double coleman_liau_index(int l, int w, int s);
-int grade_level(double i);
+int grade(double i);
 
 int main(void)
 {
@@ -27,7 +27,7 @@ int main(void)
 
     int i = coleman_liau_index(l, w, s);
 
-    grade_level(i);
+    grade(i);
 
 }
 // Counts the number of letters in a string provided by the user
@@ -89,7 +89,7 @@ double coleman_liau_index(int l, int w, int s)
 }
 
 // Determines the grade reading level of a given text
-int grade_level(double i)
+int grade(double i)
 {
     int g = round(i);
     if (g < 1)
@@ -102,7 +102,7 @@ int grade_level(double i)
     }
     else
     {
-        printf("Grade Level: %i\n", g);
+        printf("Grade %i\n", g);
     }
     return g;
 }
