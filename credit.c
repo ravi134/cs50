@@ -81,7 +81,7 @@ int start_digits(long ccnumber)
     int start = 0;
 
     // AMEX
-    if (ccnumber / 10000000000000 >= 34 && ccnumber / 10000000000000 <= 37)
+    if (ccnumber / 10000000000000 == 34 || ccnumber / 10000000000000 == 37)
         start = 1;
     // MASTERCARD
     if (ccnumber / 100000000000000 >= 51 && ccnumber / 100000000000000 <= 55)
