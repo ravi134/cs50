@@ -6,34 +6,35 @@
 #include <math.h>
 
 //Declaring functions
-int count_letters(string text);
-int count_words(string text);
-int count_sentences(string text);
-double coleman_liau_index(int l, int w, int s);
+double count_letters(string text);
+double count_words(string text);
+double count_sentences(string text);
+double coleman_liau_index(double l, double w, double s);
 int grade(double i);
 
 int main(void)
 {
     string text = get_string("Text: ");
 
-    int l = count_letters(text);
-    //printf("Letters: %i\n", l);
+    double l = count_letters(text);
+    printf("Letters: %f\n", l);
 
-    int w = count_words(text);
-    //printf("Words: %i\n", w)
+    double w = count_words(text);
+    printf("Words: %f\n", w);
 
-    int s = count_sentences(text);
-    //printf("Sentences: %i\n", s)
+    double s = count_sentences(text);
+    printf("Sentences: %f\n", s);
 
-    int i = coleman_liau_index(l, w, s);
+    double i = coleman_liau_index(l, w, s);
+    printf("Index: %f\n", i);
 
     grade(i);
 
 }
 // Counts the number of letters in a string provided by the user
-int count_letters(string text)
+double count_letters(string text)
 {
-    int l = 0;
+    double l = 0;
 
     for (int index = 0, length = strlen(text); index < length; index++)
     {
@@ -46,9 +47,9 @@ int count_letters(string text)
 }
 
 // Counts the number of words in a string provided by the user
-int count_words(string text)
+double count_words(string text)
 {
-    int w = 1;
+    double w = 1;
 
     for (int index = 0, length = strlen(text); index < length; index++)
     {
@@ -65,9 +66,9 @@ int count_words(string text)
 }
 
 // Counts the number of sentences in a string provided by the user
-int count_sentences(string text)
+double count_sentences(string text)
 {
-    int s = 0;
+    double s = 0;
 
     for (int index = 0, length = strlen(text); index <= length; index++)
     {
@@ -80,11 +81,13 @@ int count_sentences(string text)
 }
 
 // Calculates the grade level based on the Coleman-Liau Index
-double coleman_liau_index(int l, int w, int s)
+double coleman_liau_index(double l, double w, double s)
 {
     double avglet = ((l * 100) / w);
+    printf("%f\n", avglet);
     double avgsent = ((s * 100) / w);
-    double i = 0.0588 * avglet - 0.296 * avgsent - 15.8;
+    printf("%f\n", avgsent);
+    double i = ((0.0588 * avglet) - (0.296 * avgsent)) - 15.8;
     return i;
 }
 
@@ -92,7 +95,7 @@ double coleman_liau_index(int l, int w, int s)
 int grade(double i)
 {
     int g = round(i);
-    if (g < 1)
+    if (g <= 1)
     {
         printf("Before Grade 1\n");
     }
