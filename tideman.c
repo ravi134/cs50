@@ -135,6 +135,7 @@ void record_preferences(int ranks[])
 void add_pairs(void)
 {
     // TODO
+    pair_count  = candidate_count * (candidate_count - 1) / 2;
     for (int i = 0; i < candidate_count; i++)
     {
         for (int j = 0; j < candidate_count; j++)
@@ -143,10 +144,10 @@ void add_pairs(void)
             {
                 pairs[pair_count].winner = i;
                 pairs[pair_count].loser = j;
-                pair_count++;
             }
         }
     }
+    printf("%i\n", pair_count);
     return;
 }
 
