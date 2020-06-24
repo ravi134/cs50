@@ -208,10 +208,11 @@ void lock_pairs(void)
 void print_winner(void)
 {
     // TODO
-    int place = 0;
+    int place;
 
     for (int i = 0; i < candidate_count; i++)
     {
+        place = 0;
         for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][i] == false)
