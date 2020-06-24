@@ -217,8 +217,6 @@ void print_winner(void)
             if (locked[j][i] == false)
                 place++;
         }
-
-        // Prints all the names that are the source of the graph
         if (place == candidate_count)
             printf("%s\n", candidates[i]);
     }
