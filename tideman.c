@@ -220,6 +220,5 @@ void print_winner(void)
         if (place == candidate_count)
             printf("%s", candidates[place]);
     }
-    printf("%s\n", candidates[pairs[0].winner]);
     return;
 }
