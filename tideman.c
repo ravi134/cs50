@@ -200,7 +200,6 @@ void lock_pairs(void)
 void print_winner(void)
 {
     // TODO
-    for (int i = 0)
     printf("%s\n", candidates[pairs[0].winner]);
     return;
 }
