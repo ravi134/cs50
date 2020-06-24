@@ -208,19 +208,19 @@ void lock_pairs(void)
 void print_winner(void)
 {
     int winner;
-    int rank;
+    int place;
 
     for (int i = 0; i < candidate_count; i++)
     {
-        rank = 0;
-        for (int k = 0; k < candidate_count; k++)
+        place = 0;
+        for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[k][i] == false)
-                rank++;
+            if (locked[j][i] == false)
+                place++;
         }
 
         // Prints all the names that are the source of the graph
-        if (rank == candidate_count)
+        if (place == candidate_count)
             printf("%s\n", candidates[i]);
     }
 }
