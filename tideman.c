@@ -218,7 +218,7 @@ void print_winner(void)
                 place++;
         }
         if (place == candidate_count)
-            printf("%s", candidates[place]);
+            printf("%s", candidates[i]);
     }
     return;
 }
