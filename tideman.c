@@ -188,9 +188,14 @@ void lock_pairs(void)
     // TODO
     for (int l = 0; l < pair_count; l++)
     {
-        int i = pairs[l].winner;
-        int j = pairs[l].loser;
+        int i = 0;
+        int j = 1;
 
+        while(i != j)
+        {
+            i = pairs[l].winner;
+            j = pairs[l].loser;
+        }
         if (locked[j][i] != true)
             locked[i][j] = true;
     }
