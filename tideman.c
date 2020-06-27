@@ -194,10 +194,21 @@ void lock_pairs(void)
     {
         int row = pairs[i].winner;
         int col = pairs[i].loser;
+        bool cycle;
 
         locked[row][col] = true;
-        if (locked[row][pairs[0].winner] == true)
-            locked[row][col] = false;
+
+        do
+        {
+            for (int j = 0; j < pair_count; j++)
+                if (row == pairs[i - j].loser)
+                    if (row == pairs[0].winner)
+                    {
+                        locked[row][col] = false;
+                        cycle = false;
+                    }
+        }
+        while(cycle == true);
     }
 }
 
@@ -213,7 +224,6 @@ void print_winner(void)
                 place++;
         }
         if (place == candidate_count)
-            printf("W: %s\n", candidates[i]);
-        printf("%i\n", place);
+            printf("%s\n", candidates[i]);
     }
 }
