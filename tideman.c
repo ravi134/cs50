@@ -196,13 +196,8 @@ void lock_pairs(void)
         int col = pairs[i].loser;
 
         locked[row][col] = true;
-        for (int j = candidate_count - 1; j >= 0; j--)
-        {
-            int row1 = pairs[j].winner;
-
-            if (locked[row1][pairs[0].winner] == true)
-                locked[row][col] = false;
-        }
+        if (locked[row][pairs[0].winner] == true)
+            locked[row][col] = false;
     }
 }
 
