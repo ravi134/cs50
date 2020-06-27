@@ -153,7 +153,6 @@ void add_pairs(void)
             }
         }
     }
-    printf("%i\n", pair_count);
     return;
 }
 
@@ -184,6 +183,9 @@ void sort_pairs(void)
         if (swap == 0)
             valid = true;
     }
+    for (int i = 0; i < pairs; i++)
+        print("%i", pairs[i]);
+    print("\n");
     while (valid == false);
     return;
 }
