@@ -190,7 +190,20 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    
+    for (int i = 0; i < pair_count; i++)
+    {
+        int row = pairs[i].winner;
+        int col = pairs[i].loser;
+
+        locked[row][col] = true;
+        for (int j = candidate_count - 1; j >= 0; j--)
+        {
+            int row1 = pairs[j].winner;
+
+            if (locked[row1][pairs[0].winner] == true)
+                locked[row][col] = false;
+        }
+    }
 }
 
 // Print the winner of the election
@@ -205,6 +218,7 @@ void print_winner(void)
                 place++;
         }
         if (place == candidate_count)
-            printf("%s\n", candidates[i]);
+            printf("W: %s\n", candidates[i]);
+        printf("%i\n", place);
     }
 }
