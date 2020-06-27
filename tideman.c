@@ -10,6 +10,7 @@ int preferences[MAX][MAX];
 
 // locked[i][j] means i is locked in over j
 bool locked[MAX][MAX];
+bool lock;
 
 // Each pair has a winner, loser
 typedef struct
@@ -183,27 +184,69 @@ void sort_pairs(void)
         if (swap == 0)
             valid = true;
     }
-    for (int i = 0; i < pairs; i++)
-        print("%i", pairs[i]);
-    print("\n");
     while (valid == false);
     return;
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
+void validateLock(int j)
+{
+    if (j == 0)
+    {
+        return;
+    }
+
+    int r = 0;
+    bool rank[j];
+    for (int i = 0; i < j; i++)
+    {
+        rank[i] = false;
+    }
+
+    // checks all the submatrixes up to a single square using recursion
+    validateLock(j - 1);
+
+    for (int i = 0; i < j; i++)
+    {
+        for (int k = 0; k < j; k++)
+        {
+            if (locked[i][k] == true)
+            {
+                rank[i] = true;
+            }
+        }
+    }
+
+    for (int i = 0; i < j; i++)
+    {
+        if (rank[i] == true)
+        {
+            r++;
+        }
+    }
+
+    // if the rank is max the lock is canceled
+    if (r == j)
+    {
+        lock = false;
+    }
+}
+
+// Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
-    for (int l = 0; l < pair_count; l++)
+    for (int i = 0; i < pair_count; i++)
     {
-        int i = pairs[l].winner;
-        int j = pairs[l].loser;
+        locked[pairs[i].winner][pairs[i].loser] = true;
 
-        if (locked[j][i] != true)
-            locked[i][j] = true;
-
+        validateLock(candidate_count);
+        // if the validateLock function found a cycle we reverse the lock
+        if (!lock)
+        {
+            locked[pairs[i].winner][pairs[i].loser] = false;
+        }
+        lock = true;
     }
-    return;
 }
 
 // Print the winner of the election
