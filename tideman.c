@@ -194,17 +194,21 @@ bool check_cycle(int i, int j, bool cycle)
     // If there is a cycle, return true
     if (pairs[i].loser == pairs[j].winner)
     {
+        int count = j;
+
         for (int k = 0; k < pair_count; k++)
         {
-            if (pairs[j].loser == pairs[k].winner)
+            if (pairs[count].loser == pairs[j + k].winner)
+            {
+                count = j + k;
+                k = 0;
                 continue;
+            }
             if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
             {
                 cycle = true;
                 return true;
             }
-            else
-                break;
         }
     }
     return false;
@@ -235,7 +239,6 @@ void lock_pairs(void)
 
                 if (cycle == true)
                     locked[i][j] = false;
-
             }
         }
     }
