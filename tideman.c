@@ -196,13 +196,12 @@ bool check_cycle(int i, int j, bool cycle)
     {
         int count = j;
 
-        for (int k = 0; k < i; k++)
+        for (int k = 0; k <= i; k++)
         {
             if (pairs[count].loser == pairs[k].winner)
             {
                 count = k;
                 k = 0;
-                continue;
             }
 
             if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
