@@ -31,8 +31,7 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
-bool check_cycle_helper(int index, bool visited[]);
-bool check_cycle(int starting_index);
+bool check_cycle(int temp_winner, int temp_loser);
 void lock_pairs(void);
 void print_winner(void);
 
@@ -189,32 +188,26 @@ void sort_pairs(void)
     return;
 }
 
-bool check_cycle_helper(int index, bool visited[])
-{
-    if (visited[index])
-        return true;
-    visited[index] = true;
-    for (int i = 0; i < candidate_count; i++)
-    {
-        if(locked[index][i] && check_cycle_helper(i, visited))
-            return true;
-    }
-    return false;
-}
-
 //Check if a cycle is created
-bool check_cycle(int starting_index)
+bool check_cycle(int temp_winner, int temp_loser)
 {
-    // If there is a cycle, return true
-    bool visited[candidate_count];
-    for (int i = 0; i < candidate_count; i++)
-        visited[i] = false;
-    return check_cycle_helper(starting_index, visited);
+    if (locked[temp_loser][temp_winner])
+            return false;
+
+    for (int i = 0; i < candidate_count - 1; i++)
+    {
+        if (locked[temp_loser][i])
+            check_cycle(temp_winner, i);
+    }
+    return true;
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
+    int temp_winner;
+    int temp_loser;
+
     //Sets all winners as true
     for (int i = 0; i < pair_count; i++)
     {
@@ -223,10 +216,12 @@ void lock_pairs(void)
 
         locked[row][col] = true;
 
-        //Sets all winners creating a cycle to false
-        if(check_cycle(i))
-            locked[row][col] = false;
+        temp_winner = row;
+        temp_loser = col;
+
+        locked[row][col] = check_cycle(temp_winner, temp_loser);
     }
+    return;
 }
 
 // Print the winner of the election
