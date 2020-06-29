@@ -31,7 +31,8 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
-bool check_cycle(int i, int j, bool cycle);
+bool check_cycle_helper(int index, bool visited[]);
+bool check_cycle(int starting_index);
 void lock_pairs(void);
 void print_winner(void);
 
@@ -188,29 +189,27 @@ void sort_pairs(void)
     return;
 }
 
-//Check if a cycle is created
-bool check_cycle(int i, int j, bool cycle)
+bool check_cycle_helper(int index, bool visited[])
 {
-    // If there is a cycle, return true
-    if (pairs[i].loser == pairs[j].winner)
+    if (visited[index])
+        return true;
+    visited[index] = true;
+    for (int i = 0; i < candidate_count; i++)
     {
-        int count = j;
-
-        for (int k = 0; k <= i; k++)
-        {
-            if (pairs[count].loser == pairs[k].winner)
-            {
-                if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
-                {
-                    cycle = true;
-                    return true;
-                }
-                count = k;
-                k = -1;
-            }
-        }
+        if(locked[index][i] && check_cycle_helper(i, visited))
+            return true;
     }
     return false;
+}
+
+//Check if a cycle is created
+bool check_cycle(int starting_index)
+{
+    // If there is a cycle, return true
+    bool visited[candidate_count];
+    for (int i = 0; i < candidate_count; i++)
+        visited[i] = false;
+    return check_cycle_helper(starting_index, visited);
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
@@ -223,23 +222,10 @@ void lock_pairs(void)
         int col = pairs[i].loser;
 
         locked[row][col] = true;
-    }
 
-    //Sets all winners creating a cycle to false
-    bool cycle = false;
-
-    for (int i = 0; i < pair_count; i++)
-    {
-        for (int j = 0; j <= i; j++)
-        {
-            if (i != j)
-            {
-                check_cycle(i, j, cycle);
-
-                if (cycle == true)
-                    locked[i][j] = false;
-            }
-        }
+        //Sets all winners creating a cycle to false
+        if(check_cycle(i))
+            locked[row][col] = false;
     }
 }
 
