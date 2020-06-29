@@ -85,15 +85,18 @@ void print_winner(void)
 {
     int max = -1;
 
-    // TODO
+    // Determiens the highest number of votes
     for (int i = 0; i < candidate_count; i++)
     {
         if (candidates[i].votes > max)
             max = candidates[i].votes;
     }
 
+    // prints the winner
     for (int i = 0; i < candidate_count; i++)
+    {
         if (candidates[i].votes == max)
             printf("%s\n", candidates[i].name);
+    }
     return;
 }
