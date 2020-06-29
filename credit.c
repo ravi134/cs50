@@ -9,12 +9,14 @@
 #include <cs50.h>
 #include <stdio.h>
 
+// declare funtions
 bool check_sum(long ccnumber);
 int card_length(long ccnumber);
 int start_digits(long ccnumber);
 
 int main(void)
 {
+    // get user credit card number
     long ccnumber = get_long("Number: ");
 
     // Assigning the integers
