@@ -31,6 +31,7 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
+bool check_cycle(int i, int j, bool cycle);
 void lock_pairs(void);
 void print_winner(void);
 
@@ -188,10 +189,31 @@ void sort_pairs(void)
 }
 
 //Check if a cycle is created
+bool check_cycle(int i, int j, bool cycle)
+{
+    // If there is a cycle, return true
+    if (pairs[i].loser == pairs[j].winner)
+    {
+        for (int k = 0; k < pair_count; k++)
+        {
+            if (pairs[j].loser == pairs[k].winner)
+                continue;
+            if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
+            {
+                cycle = true;
+                return true;
+            }
+            else
+                break;
+        }
+    }
+    return false;
+}
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
+    //Sets all winners as true
     for (int i = 0; i < pair_count; i++)
     {
         int row = pairs[i].winner;
@@ -200,13 +222,23 @@ void lock_pairs(void)
         locked[row][col] = true;
     }
 
-    //for (int i = 0; i < pair-count; i++)
-    //{
-        //for (int j = 0; j < pair_count; j++)
-        //{
-            //check_cycle(i, j);
-        //}
-    //}
+    //Sets all winners creating a cycle to false
+    bool cycle = false;
+
+    for (int i = 0; i < pair_count; i++)
+    {
+        for (int j = 0; j < pair_count; j++)
+        {
+            if (i != j)
+            {
+                check_cycle(i, j, cycle);
+
+                if (cycle == true)
+                    locked[i][j] = false;
+
+            }
+        }
+    }
 }
 
 // Print the winner of the election
