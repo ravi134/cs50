@@ -197,7 +197,8 @@ bool check_cycle(int temp_winner, int temp_loser)
     for (int i = 0; i < candidate_count - 1; i++)
     {
         if (locked[temp_loser][i])
-            check_cycle(temp_winner, i);
+            if (!check_cycle(temp_winner, i))
+                return false;
     }
     return true;
 }
