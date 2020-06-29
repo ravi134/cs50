@@ -206,7 +206,7 @@ bool check_cycle(int i, int j, bool cycle)
                     return true;
                 }
                 count = k;
-                k = 0;
+                k = -1;
             }
         }
     }
