@@ -192,15 +192,13 @@ void sort_pairs(void)
 bool check_cycle(int row, int col)
 {
     if (locked[row][col])
-            return false;
+        return false;
 
     for (int i = 0; i < candidate_count - 1; i++)
     {
         if (locked[col][i])
-        {
             if (!check_cycle(row, i))
                 return false;
-        }
     }
     return true;
 }
@@ -208,20 +206,12 @@ bool check_cycle(int row, int col)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    int win;
-    int lose;
-
     //Sets all winners as true
     for (int i = 0; i < pair_count; i++)
     {
         int row = pairs[i].winner;
         int col = pairs[i].loser;
-
         locked[row][col] = true;
-
-        win = row;
-        lose = col;
-
         locked[row][col] = check_cycle(row, col);
     }
     return;
