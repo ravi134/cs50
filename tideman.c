@@ -197,8 +197,10 @@ bool check_cycle(int row, int col)
     for (int i = 0; i < candidate_count - 1; i++)
     {
         if (locked[col][i])
+        {
             if (!check_cycle(row, i))
                 return false;
+        }
     }
     return true;
 }
