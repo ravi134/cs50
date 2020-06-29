@@ -196,9 +196,8 @@ bool check_cycle(int i, int j, bool cycle)
     {
         int count = j;
 
-        for (int k = 0; k < pair_count; k++)
+        for (int k = 0; k < i; k++)
         {
-
             if (pairs[count].loser == pairs[k].winner)
             {
                 count = k;
@@ -241,6 +240,13 @@ void lock_pairs(void)
 
                 if (cycle == true)
                     locked[i][j] = false;
+            }
+
+            for (int p = 0; i < candidate_count; i++)
+            {
+                for (int o = 0; j < candidate_count; j++)
+                    printf("%i", locked[p][o]);
+                printf("\n");
             }
         }
     }
