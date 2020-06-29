@@ -230,7 +230,7 @@ void lock_pairs(void)
 
     for (int i = 0; i < pair_count; i++)
     {
-        for (int j = 0; j < pair_count; j++)
+        for (int j = 0; j <= i; j++)
         {
             if (i != j)
             {
@@ -238,13 +238,6 @@ void lock_pairs(void)
 
                 if (cycle == true)
                     locked[i][j] = false;
-            }
-
-            for (int p = 0; i < candidate_count; i++)
-            {
-                for (int o = 0; j < candidate_count; j++)
-                    printf("%i", locked[p][o]);
-                printf("\n");
             }
         }
     }
