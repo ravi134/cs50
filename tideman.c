@@ -200,14 +200,13 @@ bool check_cycle(int i, int j, bool cycle)
         {
             if (pairs[count].loser == pairs[k].winner)
             {
+                if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
+                {
+                    cycle = true;
+                    return true;
+                }
                 count = k;
                 k = 0;
-            }
-
-            if (pairs[i].loser == pairs[k].winner && pairs[k].loser == pairs[i].winner)
-            {
-                cycle = true;
-                return true;
             }
         }
     }
