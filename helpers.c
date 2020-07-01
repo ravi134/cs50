@@ -30,7 +30,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     for (int i = 0; i < height; i++)
     {
         //Iterate through columns
-        for (int j = 0; j < (width/2); j++)
+        for (int j = 0; j < (width / 2); j++)
         {
             int blue = image[i][j].rgbtBlue;
             int green = image[i][j].rgbtGreen;
