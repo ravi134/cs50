@@ -11,7 +11,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         for (int j = 0; j < width; j++)
         {
             //determine average
-            float avg = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed) / 3.00;
+            float avg = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed) / 3.0;
             int average = round(avg);
 
             //set colors to appropriate grayscale
@@ -51,6 +51,50 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    RGBTRIPLE t[height][width];
+     //Iterate through rows
+    for (int i = 0; i < height; i++)
+    {
+        //Iterate through columns
+        for (int j = 0; j < width; j++)
+        {
+            int sb =  0;
+            int sg =  0;
+            int sr =  0;
+            float count = 0.0;
+
+            for (int k = -1; k <= 1; k++)
+            {
+                for (int l = -1; l <= 1; l++)
+                {
+                    if (i + k < 0 || i + k > height - 1 || j + l < 0 || j + l > width - 1)
+                    {
+                        continue;
+                    }
+
+                    sb += image[i + k][j + l].rgbtBlue;
+                    sg += image[i + k][j + l].rgbtGreen;
+                    sr += image[i + k][j + l].rgbtRed;
+                    count++;
+                }
+            }
+
+            t[i][j].rgbtBlue = round(sb/count);
+            t[i][j].rgbtGreen = round(sg/count);
+            t[i][j].rgbtRed = round(sr/count);
+        }
+    }
+    //Iterate through rows
+    for (int i = 0; i < height; i++)
+    {
+        //Iterate through columns
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j].rgbtBlue = t[i][j].rgbtBlue;
+            image[i][j].rgbtGreen = t[i][j].rgbtGreen;
+            image[i][j].rgbtRed = t[i][j].rgbtRed;
+        }
+    }
     return;
 }
 
