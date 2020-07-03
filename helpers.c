@@ -147,13 +147,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int h = -1; h < 2; h++)
                 {
-                    blueGx += t[i + k][j + h].rgbtBlue * Gx[k + 1][h + 1];
-                    greenGx += t[i + k][j + h].rgbtGreen * Gx[k + 1][h + 1];
-                    redGx += t[i  + k][j + h].rgbtRed * Gx[k + 1][h + 1];
-
-                    blueGy += t[i + k][j + h].rgbtBlue * Gy[k + 1][h + 1];
-                    greenGy += t[i + k][j + h].rgbtGreen * Gy[k + 1][h + 1];
-                    redGy += t[i + k][j + h].rgbtRed * Gy[k + 1][h + 1];
+                    blueGx += 2 * (t[i + k][j + h].rgbtBlue * Gx[k + 1][h + 1]);
+                    greenGx += 2 * (t[i + k][j + h].rgbtGreen * Gx[k + 1][h + 1]);
+                    redGx += 2 * (t[i  + k][j + h].rgbtRed * Gx[k + 1][h + 1]);
                 }
             }
             t2[i][j].rgbtBlue = edge(round(sqrt(blueGx * blueGx + blueGy * blueGy)));
