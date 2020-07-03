@@ -96,7 +96,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 }
 
 // sets edges to black
-int maxCheck(int a)
+int edge(int a)
 {
     if (a > 255)
     {
@@ -144,8 +144,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     //calculation based on the copied image
     for (int i = 1; i < height + 1; i++)
     {
-        // varibles to stroy Gx Gy for each color channels
-
         for (int j = 1; j < width + 1; j++)
         {
             float blueGx = 0.0, redGx = 0.0, greenGx = 0.0;
@@ -155,20 +153,20 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int h = -1; h < 2; h++)
                 {
-                    //calculate the Gx for each R G B channel by using temp
+
                     blueGx += temp[i + k][j + h].rgbtBlue * Gx[k + 1][h + 1];
                     redGx += temp[i  + k][j + h].rgbtRed * Gx[k + 1][h + 1];
                     greenGx += temp[i + k][j + h].rgbtGreen * Gx[k + 1][h + 1];
-                    //calculate the Gy for each R G B channel by using temp
+
                     blueGy += temp[i + k][j + h].rgbtBlue * Gy[k + 1][h + 1];
                     redGy += temp[i + k][j + h].rgbtRed * Gy[k + 1][h + 1];
                     greenGy += temp[i + k][j + h].rgbtGreen * Gy[k + 1][h + 1];
                 }
             }
-            //store result for each pixels (i, j) in temp2
-            temp2[i][j].rgbtRed = maxCheck(round(sqrt(redGx * redGx + redGy * redGy)));
-            temp2[i][j].rgbtBlue = maxCheck(round(sqrt(blueGx * blueGx + blueGy * blueGy)));
-            temp2[i][j].rgbtGreen = maxCheck(round(sqrt(greenGx * greenGx + greenGy * greenGy)));
+
+            temp2[i][j].rgbtRed = edge(round(sqrt(redGx * redGx + redGy * redGy)));
+            temp2[i][j].rgbtBlue = edge(round(sqrt(blueGx * blueGx + blueGy * blueGy)));
+            temp2[i][j].rgbtGreen = edge(round(sqrt(greenGx * greenGx + greenGy * greenGy)));
         }
     }
 
