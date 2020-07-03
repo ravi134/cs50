@@ -143,16 +143,16 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             float blueGx = 0.0, greenGx = 0.0, redGx = 0.0;
             float blueGy = 0.0, greenGy = 0.0, redGy = 0.0;
 
-            for (int k = -1; k < 2; k++)
+            for (int k = -1; k <= 1; k++)
             {
-                for (int h = -1; h < 2; h++)
+                for (int h = -1; h <= 1; h++)
                 {
-                    for (int p = 0; p < 2; p++)
-                    {
-                        blueGx += t[i + k][j + h].rgbtBlue * Gx[k + 1][h + 1];
-                        greenGx += t[i + k][j + h].rgbtGreen * Gx[k + 1][h + 1];
-                        redGx += t[i  + k][j + h].rgbtRed * Gx[k + 1][h + 1];
-                    }
+                    blueGx += t[i + k][j + h].rgbtBlue * Gx[k + 1][h + 1];
+                    greenGx += t[i + k][j + h].rgbtGreen * Gx[k + 1][h + 1];
+                    redGx += t[i  + k][j + h].rgbtRed * Gx[k + 1][h + 1];
+                    blueGy += t[i + k][j + h].rgbtBlue * Gy[k + 1][h + 1];
+                    greenGy += t[i + k][j + h].rgbtGreen * Gy[k + 1][h + 1];
+                    redGy += t[i + k][j + h].rgbtRed * Gy[k + 1][h + 1];
                 }
             }
             t2[i][j].rgbtBlue = edge(round(sqrt(blueGx * blueGx + blueGy * blueGy)));
