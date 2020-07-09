@@ -1,1 +1,1 @@
-SELECT rating FROM  WHERE year == 2008
+SELECT COUNT(*) FROM ratings WHERE rating == 10.0;
