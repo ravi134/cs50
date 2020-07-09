@@ -1,0 +1,1 @@
+SELECT rating FROM  WHERE year == 2008
