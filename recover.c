@@ -24,10 +24,8 @@ int main(int argc, char *argv[])
 
     while (fread(buf, 1, BLOCK, cardraw) == BLOCK)
     {
-        if (buf[0] == 0xff &&
-            buf[1] == 0xd8 &&
-            buf[2] == 0xff &&
-            (buf[3] & 0xf0) == 0xe0)
+        if (buf[0] == 0xff && buf[1] == 0xd8 &&
+            buf[2] == 0xff && (buf[3] & 0xf0) == 0xe0)
         {
             if (cnt == 0)
             {
