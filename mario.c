@@ -30,7 +30,7 @@ int main(void)
 
         // Prints the #'s for the current row of the pyramid
         for (int shape = 0; shape <= height; shape++)
-           printf("#");
+            printf("#");
 
         // Prints the two spaces in the middle of the pyramid
         printf("  ");
